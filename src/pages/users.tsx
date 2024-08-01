@@ -45,9 +45,11 @@ const ListOfUsers: React.FC = () => {
   }
 
   return (
-    <div className="users-container mt-4">
+    <div className="container mt-10 px-4 sm:px-6 lg:px-8 bg-white">
       <h2 className="text-2xl font-semibold tracking-tight">Users</h2>
-      <UsersDataTable columns={usersColumns} data={users} />
+      <div className="mt-4">
+        <UsersDataTable columns={usersColumns} data={users} />
+      </div>
     </div>
   );
 };

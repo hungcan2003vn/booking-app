@@ -22,7 +22,6 @@ const UserAuthForm: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-
     try {
       const user = await dispatch(userLoginFetch({ identifier, password })).unwrap();
       if (user) {
@@ -71,16 +70,11 @@ const UserAuthForm: React.FC = () => {
             />
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
-          <Button className="mt-4" type="submit" disabled={isLoading || !identifier || !password}>
-            {isLoading && (
-              <LoaderCircle>className="mr-2 h-4 w-4 animate-spin" </LoaderCircle> 
-            )}
-            Sign In with Email
-          </Button>
+          <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? <LoaderCircle className="animate-spin" /> : 'Login'}
+        </Button>
         </div>
       </form>
-      {auth.loading && <p>Loading...</p>}
-      {auth.error && <p>{auth.error}</p>}
     </div>
   );
 };

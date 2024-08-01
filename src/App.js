@@ -5,8 +5,6 @@ import store from "./redux/store";
 import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
 import Users from "./pages/users";
-import CreateBooking from "./pages/createbooking";
-import RescheduleBooking from "./pages/reschedulebooking";
 import Layout from "./components/layout";
 import "./app/globals.css";
 
@@ -17,25 +15,25 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/dashboard/*" element={<DashboardWithLayout />} />
-          <Route path="/create-booking" element={<CreateBooking />} />
-          <Route
-            path="/bookings/:bookingId/reschedule"
-            element={<RescheduleBooking />}
-          />
-          <Route path="/users" element={<Users />} />
+          <Route path="/users" element={<UsersWithLayout />} />
         </Routes>
       </Router>
     </Provider>
   );
 }
 
-// Example of DashboardWithLayout component that wraps Dashboard in Layout
 const DashboardWithLayout = () => (
   <Layout>
     <Routes>
       <Route index element={<Dashboard />} />
       {/* Other nested routes specific to Dashboard */}
     </Routes>
+  </Layout>
+);
+
+const UsersWithLayout = () => (
+  <Layout>
+    <Users />
   </Layout>
 );
 

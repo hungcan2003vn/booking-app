@@ -1,3 +1,4 @@
+// src/redux/features/auth/authSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { loginApi } from "../../api/loginApi";
 import { loginRequest, loginSuccess, loginFailure } from "./authActions";
@@ -49,23 +50,33 @@ export const userLoginFetch = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginRequest, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(loginSuccess, (state, action: PayloadAction<{ user: Users, token: string }>) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.loading = false;
-      })
+      .addCase(
+        loginSuccess,
+        (state, action: PayloadAction<{ user: Users; token: string }>) => {
+          state.user = action.payload.user;
+          state.token = action.payload.token;
+          state.loading = false;
+        }
+      )
       .addCase(loginFailure, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
         state.loading = false;
       });
   },
 });
+
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

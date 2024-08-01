@@ -79,9 +79,13 @@ export const createBooking = createAsyncThunk(
 );
 
 export const updateBooking = createAsyncThunk(
-  'authBooking/updateBooking',
+  "authBooking/updateBooking",
   async (
-    { token, bookingId, bookingData }: { token: string; bookingId: number; bookingData: any },
+    {
+      token,
+      bookingId,
+      bookingData,
+    }: { token: string; bookingId: number; bookingData: any },
     { rejectWithValue }
   ) => {
     try {
@@ -156,12 +160,17 @@ const authBookingSlice = createSlice({
           );
         }
       )
-      .addCase(updateBooking.fulfilled, (state, action: PayloadAction<Booking>) => {
-        const index = state.bookings.findIndex((booking) => booking.id === action.payload.id);
-        if (index !== -1) {
-          state.bookings[index] = action.payload;
+      .addCase(
+        updateBooking.fulfilled,
+        (state, action: PayloadAction<Booking>) => {
+          const index = state.bookings.findIndex(
+            (booking) => booking.id === action.payload.id
+          );
+          if (index !== -1) {
+            state.bookings[index] = action.payload;
+          }
         }
-      });
+      );
   },
 });
 
